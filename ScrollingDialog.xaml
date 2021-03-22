@@ -1,0 +1,35 @@
+﻿<Window x:Class="ScrollableDialog.ScrollingDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ScrollableDialog"
+        mc:Ignorable="d"
+        Title="ScrollingDialog" MinHeight="200" MinWidth="400"
+                                MaxHeight="750" MaxWidth="700"
+                                SizeToContent="WidthAndHeight">
+    <Grid x:Name="gridMain">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="40" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="10" />
+        </Grid.RowDefinitions>
+        <TextBox Name="txtMessage"
+                 Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6"
+                 IsReadOnly="True" BorderThickness="0,0,0,2" BorderBrush="Gray"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto" />
+    </Grid>
+</Window>
