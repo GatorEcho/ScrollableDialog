@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ScrollableDialog"
         mc:Ignorable="d"
         Title="ScrollingDialog" MinHeight="200" MinWidth="400"
-                                MaxHeight="750" MaxWidth="700"
+                                MaxHeight="750" MaxWidth="900"
                                 SizeToContent="WidthAndHeight">
     <Grid x:Name="gridMain">
         <Grid.ColumnDefinitions>
@@ -28,8 +28,9 @@
         </Grid.RowDefinitions>
         <TextBox Name="txtMessage"
                  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6"
-                 IsReadOnly="True" BorderThickness="0,0,0,2" BorderBrush="Gray"
+                 IsReadOnly="True" BorderThickness="0"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"
-                 ScrollViewer.HorizontalScrollBarVisibility="Auto" />
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                 TextBlock.LineHeight="10" />
     </Grid>
 </Window>

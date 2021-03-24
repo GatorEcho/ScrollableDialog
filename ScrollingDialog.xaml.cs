@@ -31,16 +31,16 @@ namespace ScrollableDialog
         }
 
         /// <summary>
-        /// how a scrollable dialog with the provided message and an OK button.
+        /// Show a scrollable dialog with the provided message and an OK button.
         /// </summary>
         /// <param name="message"></param>
         public void Show(string message)
         {
             txtMessage.Text = message;
-            this.Title = "";
+            Title = "";
 
             ChooseButtons(MessageBoxButton.OK);
-            this.ShowDialog();
+            ShowDialog();
         }
 
         /// <summary>
@@ -51,10 +51,10 @@ namespace ScrollableDialog
         public void Show(string message, string caption)
         {
             txtMessage.Text = message;
-            this.Title = caption;
+            Title = caption;
 
             ChooseButtons(MessageBoxButton.OK);
-            this.ShowDialog();
+            ShowDialog();
         }
 
         /// <summary>
@@ -66,9 +66,9 @@ namespace ScrollableDialog
         public void Show(string message, string caption, MessageBoxButton buttonType)
         {
             txtMessage.Text = message;
-            this.Title = caption;
+            Title = caption;
             ChooseButtons(buttonType);
-            this.ShowDialog();
+            ShowDialog();
         }
 
         /// <summary>
@@ -81,12 +81,12 @@ namespace ScrollableDialog
         public void Show(string message, string caption, MessageBoxButton buttonType, MessageBoxImage imageType)
         {
             txtMessage.Text = message;
-            this.Title = caption;
+            Title = caption;
             //Move the textbox to the right to accomodate the image.
             txtMessage.Margin = new Thickness(50, 0, 0, 0);
             ChooseButtons(buttonType);
-            ChooseImage(imageType);
-            this.ShowDialog();
+            AddImage(imageType);
+            ShowDialog();
         }
 
         private void ChooseButtons(MessageBoxButton buttonType)
@@ -111,28 +111,51 @@ namespace ScrollableDialog
             }
         }
 
-        private void ChooseImage(MessageBoxImage imageType)
+        private void AddImage(MessageBoxImage imageType)
         {
+            var image = new System.Windows.Controls.Image();
+
             switch (imageType)
             {
                 case MessageBoxImage.Error:
-                    AddErrorImage();
+                    image.Source = Imaging.CreateBitmapSourceFromHIcon(
+                                        SystemIcons.Error.Handle,
+                                        Int32Rect.Empty,
+                                        BitmapSizeOptions.FromEmptyOptions());
                     break;
 
                 case MessageBoxImage.Information:
-                    AddInformationImage();
+                    image.Source = Imaging.CreateBitmapSourceFromHIcon(
+                                        SystemIcons.Information.Handle,
+                                        Int32Rect.Empty,
+                                        BitmapSizeOptions.FromEmptyOptions());
                     break;
 
                 case MessageBoxImage.Warning:
-                    AddWarningImage();
+                    image.Source = Imaging.CreateBitmapSourceFromHIcon(
+                                        SystemIcons.Warning.Handle,
+                                        Int32Rect.Empty,
+                                        BitmapSizeOptions.FromEmptyOptions());
                     break;
 
                 case MessageBoxImage.Question:
-                    AddQuestionImage();
+                    image.Source = Imaging.CreateBitmapSourceFromHIcon(
+                                        SystemIcons.Question.Handle,
+                                        Int32Rect.Empty,
+                                        BitmapSizeOptions.FromEmptyOptions());
                     break;
 
                 default:
                     break;
+            }
+
+            if (image.Source != null)
+            {
+                Grid.SetColumn(image, 1);
+                Grid.SetRow(image, 1);
+                image.HorizontalAlignment = HorizontalAlignment.Left;
+                image.VerticalAlignment = VerticalAlignment.Top;
+                gridMain.Children.Add(image);
             }
         }
 
@@ -198,81 +221,21 @@ namespace ScrollableDialog
             gridMain.Children.Add(btnNo);
         }
 
-        private void AddErrorImage()
-        {
-            var image = new System.Windows.Controls.Image();
-            image.Source = Imaging.CreateBitmapSourceFromHIcon(
-                                SystemIcons.Error.Handle,
-                                Int32Rect.Empty,
-                                BitmapSizeOptions.FromEmptyOptions());
-
-            Grid.SetColumn(image, 1);
-            Grid.SetRow(image, 1);
-            image.HorizontalAlignment = HorizontalAlignment.Left;
-            image.VerticalAlignment = VerticalAlignment.Top;
-            gridMain.Children.Add(image);
-        }
-
-        private void AddInformationImage()
-        {
-            var image = new System.Windows.Controls.Image();
-            image.Source = Imaging.CreateBitmapSourceFromHIcon(
-                                SystemIcons.Information.Handle,
-                                Int32Rect.Empty,
-                                BitmapSizeOptions.FromEmptyOptions());
-
-            Grid.SetColumn(image, 1);
-            Grid.SetRow(image, 1);
-            image.HorizontalAlignment = HorizontalAlignment.Left;
-            image.VerticalAlignment = VerticalAlignment.Top;
-            gridMain.Children.Add(image);
-        }
-
-        private void AddWarningImage()
-        {
-            var image = new System.Windows.Controls.Image();
-            image.Source = Imaging.CreateBitmapSourceFromHIcon(
-                                SystemIcons.Warning.Handle,
-                                Int32Rect.Empty,
-                                BitmapSizeOptions.FromEmptyOptions());
-
-            Grid.SetColumn(image, 1);
-            Grid.SetRow(image, 1);
-            image.HorizontalAlignment = HorizontalAlignment.Left;
-            image.VerticalAlignment = VerticalAlignment.Top;
-            gridMain.Children.Add(image);
-        }
-
-        private void AddQuestionImage()
-        {
-            var image = new System.Windows.Controls.Image();
-            image.Source = Imaging.CreateBitmapSourceFromHIcon(
-                                SystemIcons.Question.Handle,
-                                Int32Rect.Empty,
-                                BitmapSizeOptions.FromEmptyOptions());
-
-            Grid.SetColumn(image, 1);
-            Grid.SetRow(image, 1);
-            image.HorizontalAlignment = HorizontalAlignment.Left;
-            image.VerticalAlignment = VerticalAlignment.Top;
-            gridMain.Children.Add(image);
-        }
-
         private void OK_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void YES_Click(object sender, EventArgs e)
         {
-            this.DialogResult = true;
-            this.Close();
+            DialogResult = true;
+            Close();
         }
 
         private void NO_Click(object sender, EventArgs e)
         {
-            this.DialogResult = false;
-            this.Close();
+            DialogResult = false;
+            Close();
         }
     }
 }
